@@ -1,0 +1,1 @@
+sudo ln -s "$(pwd)/gotest" /usr/local/bin/
