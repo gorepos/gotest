@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/fatih/color"
 	"os"
 )
 
@@ -15,6 +16,9 @@ This will run 'go test -json [ARGS]' in the current directory and format the res
 way. You can use any arguments that 'go test' accepts.`
 
 func main() {
+
+	color.NoColor = false // force enable colors regardless of the environment|terminal settings
+
 	if len(os.Args) > 1 && os.Args[1] == "-h" {
 		fmt.Println(Usage)
 		os.Exit(0)
