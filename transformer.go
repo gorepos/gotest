@@ -45,7 +45,7 @@ func NewTransformer() *Transformer {
 // If there are any errors, they are printed to Stdout.
 // If there are any test failures, PASS is set to false.
 func (t *Transformer) Execute(userArgs []string) {
-	args := []string{"test", "-json"}
+	args := []string{"test", "-json", "-p", "1"}
 	args = append(args, userArgs...)
 	cmd := exec.Command("go", args...)
 	outPipe, err := cmd.StdoutPipe()
@@ -120,7 +120,7 @@ func (t *Transformer) Transform() {
 				// start a new package
 				t.println()
 				cl := DefaultStyles.PackageStart
-				t.println(cl, item.Package+":")
+				t.println(cl, item.Package+"...")
 				currentPackage = item.Package
 			}
 			cl := DefaultStyles.Run
@@ -129,8 +129,10 @@ func (t *Transformer) Transform() {
 
 		case item.IsPackageResult():
 			cl := DefaultStyles.PackageResult
-			t.print(item.indent() + " " + item.icon())
-			t.print(cl, item.indent()+" "+item.Package)
+			//t.print(item.indent() + " " + item.icon())
+			//t.print(cl, item.indent()+" "+item.Package)
+			t.print(cl, item.Package, " ", item.icon())
+
 			t.print(fmt.Sprintf(" (%.2fs)\n", item.Elapsed))
 
 		case item.Action == ActionOutput:
